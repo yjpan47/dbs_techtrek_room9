@@ -33,6 +33,27 @@ pip3 install wheel
 pip3 install -r requirements.txt
 ```
 
+### Create the Database
+
+The location of the database is decided by the **DB_ENGINE_URL** variable in **config.py**.
+By default, in **dev** environment, it will be a SQLite database located at **sqlite:///<current_directory>/api/main/local.db**.
+
+We will be using alembic to autogenerate the database from python class models. 
+FYI the class models can be found in **api/main/models/**.
+```bash
+pip3 install alembic
+```
+```bash
+alembic revision --autogenerate -m "setup"
+```
+Go to **alembic/versions/** and observe that a new revision python script is generated. 
+The python script has a function **upgrade** that will be called to spin up the database.
+```bash
+alembic upgrade head
+```
+**head** refers to the latest revision in **alembic/versions/**. You can also use the revision id e.g. *f0b6e910b613*.
+
+
 ### Run the Flask API Application
 
 The application can be run from the root **main.py**. 

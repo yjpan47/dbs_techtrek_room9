@@ -12,13 +12,13 @@ from flask_httpauth import HTTPTokenAuth
 class OfficerService:
 
     @staticmethod
-    def login_officer(email, password):
+    def login_officer(username, password):
         session = Session()
         try:
-            officer = session.query(Officer).filter_by(email=email).first()
+            officer = session.query(Officer).filter_by(username=username).first()
             if officer:
                 if BCRYPT.check_password_hash(officer.password_hash, password):
-                    token = OfficerAuthService.encode_auth_token(email, password)
+                    token = OfficerAuthService.encode_auth_token(username, password)
                     return json.dumps({
                         'status': 'success',
                         'message': 'Successfully logged in.',
@@ -47,11 +47,11 @@ class OfficerService:
 
 class OfficerAuthService:
     @staticmethod
-    def encode_auth_token(email, password):
+    def encode_auth_token(username, password):
         try:
             url = 'http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/login'
             data = {
-                'username': email,
+                'username': username,
                 'password': password
             }
             data = requests.post(url, data=data)

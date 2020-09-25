@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from api.main.models import Base
+from api.main.models.officer_model import Officer
 
 
 class Customer(Base):
@@ -11,9 +12,7 @@ class Customer(Base):
     dob = Column(DateTime, nullable=False)
     branch_code = Column(Integer, nullable=False)
     image_link = Column(String(1048), nullable=False)
-    officer_username = Column(Integer, ForeignKey('officer.username'), nullable=False)
-
-    officer = relationship('Officer', back_populates='customers')
+    officer_username = Column(Integer, nullable=False)
 
     def to_dict(self):
         result = {
