@@ -16,6 +16,9 @@ class RestaurantAuthTokenController(Resource):
     def get(self):
         return "HGellofwef", 200
 
+    def post(self):
+        return "HGellofwef", 200
+
 # @API.route('/auth/refresh', strict_slashes=False)
 # class RestaurantAuthTokenController(Resource):
 #     @RESTAURANT_TOKEN_AUTH.login_required
