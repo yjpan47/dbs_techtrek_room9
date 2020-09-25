@@ -3,7 +3,7 @@ import datetime
 from flask import request
 from flask_restplus import Resource, Namespace
 from api.main.config import IMAGE_DIR
-
+from api.main.services.officer_service import TOKEN_AUTH
 
 API = Namespace(
     name='customer',
@@ -11,13 +11,14 @@ API = Namespace(
 )
 
 
-@API.route('/srkhfaeoihgowsefaw', strict_slashes=False)
-class RestaurantAuthTokenController(Resource):
+@API.route('/', strict_slashes=False)
+class CustomerController(Resource):
+    @TOKEN_AUTH.login_required
     def get(self):
-        return "HGellofwef", 200
+        officer_username = TOKEN_AUTH.current_user()
+        return CustomerService.get_restaurant(restaurant_id)
 
-    def post(self):
-        return "HGellofwef", 200
+
 
 # @API.route('/auth/refresh', strict_slashes=False)
 # class RestaurantAuthTokenController(Resource):
