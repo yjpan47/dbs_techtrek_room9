@@ -1,19 +1,20 @@
-import os
-import datetime
 from flask import request
 from flask_restplus import Resource, Namespace
-from api.main.config import IMAGE_DIR
-
+from api.main.services.officer_service import OfficerService
 
 API = Namespace(
     name='officer',
-    description='Operations related to adding, retrieving, deleting, and updating data for the officer entity.'
+    description='Operations related to adding, retrieving, deleting, and updating data for the officer entity.',
 )
 
+
 @API.route('/login', strict_slashes=False)
-class RestaurantAuthTokenController(Resource):
-    def get(self):
-        return "HGellofwef", 200
+class OfficerLoginController(Resource):
+    def post(self):
+        username = request.json.get('username')
+        password = request.json.get('password')
+        return OfficerService.login_officer(username, password)
+
 
 
 # @API.route('/auth/refresh', strict_slashes=False)
