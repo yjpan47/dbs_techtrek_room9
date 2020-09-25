@@ -10,8 +10,9 @@ API = Namespace(
     description='Operations related to adding, retrieving, deleting, and updating data for the officer entity.'
 )
 
+
 @API.route('/login', strict_slashes=False)
-class RestaurantAuthTokenController(Resource):
+class OfficerLoginController(Resource):
     def get(self):
         return "HGellofwef", 200
 
