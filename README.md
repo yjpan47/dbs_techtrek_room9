@@ -1,3 +1,10 @@
+### Overview
+
+This repository serves at the backend API layer for [https://github.com/derekangziying/DBS-TEAM9](https://github.com/derekangziying/DBS-TEAM9)
+
+This project is part of DBS TechTrek 2020.
+
+
 ### Setup Virtual Environment and Manage Dependencies
 
 Make sure virtualenv is installed
