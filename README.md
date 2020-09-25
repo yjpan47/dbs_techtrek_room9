@@ -4,7 +4,7 @@ This repository serves at the backend API layer for [https://github.com/derekang
 
 All commits to this repository is down by the owner of this repository [yjpan47](https://github.com/yjpan47)
 
-> There are two git contributors (**johnp** and **yjpan47**) - both belonging to the owner of this repository.
+> There are two git usernames (**johnp** and **yjpan47**) that contributed to this repository - both belonging to the owner of this repository.
 
 This project is part of DBS TechTrek 2020.
 
