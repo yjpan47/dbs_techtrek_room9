@@ -2,6 +2,10 @@
 
 This repository serves at the backend API layer for [https://github.com/derekangziying/DBS-TEAM9](https://github.com/derekangziying/DBS-TEAM9)
 
+All commits to this repository is down by the owner of this repository [yjpan47](https://github.com/yjpan47)
+
+> There are two git contributors (**johnp** and **yjpan47**) - both belonging to the owner of this repository.
+
 This project is part of DBS TechTrek 2020.
 
 
