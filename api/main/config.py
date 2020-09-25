@@ -6,17 +6,17 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 ENV = os.environ.get('ENV', 'dev')
 
 # JWT Secret Key
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "mysecret"
 
 # IMGUR Credentials
-IMGUR_CLIENT_ID = os.environ['IMGUR_CLIENT_ID']
-IMGUR_CLIENT_SECRET = os.environ['IMGUR_CLIENT_ID']
+IMGUR_CLIENT_ID = os.getenv('IMGUR_CLIENT_ID')
+IMGUR_CLIENT_SECRET = os.getenv('IMGUR_CLIENT_ID')
 
 # DB Credentials
-DB_USER = os.environ["DB_USER"]
-DB_PASSWORD = os.environ["DB_PASSWORD"]
-DB_NAME = os.environ["DB_NAME"]
-SQL_CONNECTION_NAME = os.environ["SQL_CONNECTION_NAME"]
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_NAME = os.getenv("DB_NAME")
+SQL_CONNECTION_NAME = os.getenv("SQL_CONNECTION_NAME")
 
 
 def create_engine_url(env):
@@ -42,14 +42,6 @@ if not os.path.exists(IMAGE_DIR):
 # Setup Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s: %(levelname)s - %(message)s')
 LOGGER = logging.getLogger(__name__)
-
-# Webpush configs
-
-VAPID_PRIVATE_KEY = "HD1mPArkGyojcsSX4IIU8rhr4t5pXtrJlOmD3DUyHmg"
-
-VAPID_CLAIMS = {
-    "sub": "mailto:domain@example.com"
-}
 
 
 class Config:
