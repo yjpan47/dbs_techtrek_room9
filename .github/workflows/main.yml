@@ -1,0 +1,45 @@
+name: Deploy Backend API
+
+on:
+  push:
+    branches: 
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy
+      working-directory: backend
+      shell: bash
+      run: |
+        set -euo pipefail
+        # Create Service Account
+        echo "Create Service Account for GCloud authentication"``
+        cat >> service-account.json << EOF
+        {
+        "type": "service_account",
+        "project_id": "proven-mind-243406",
+        "private_key_id": "d48265661180709b9e14ad26fcf8d67fd848a509",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCgIXm4J+Yr2sL+\nOFlvwnxaRlA/UZZb3/DM1Snl1yi8kqVkXyU05XV8Cy1D/auiCMpE88FaFa2rpFAE\n3Qgy9WmgfDLBSXmpZAfBiEASylpo2g9PvDA35n7qTASdK3SdeR8NlDiR7/TegFfA\nnefk8ynDbyReScuhB22tvsNzWIJZK/NCXo5EDp3GTMalQhtXz1WzL1U69TXqhnrn\n1aTD8zw31zv4hwmqS9TTZy1xji+7Y+LCH55Lj9F2KdPzD5X89p9gx3YQ1dzADPz1\ntQ3W45mM4RGAh1pHYIWgXMG6xzWslqEcQNv12s9lFHApAgW3KeW6pqtFXMZiSQKJ\niIat+TJLAgMBAAECggEARCmbv3k0cCyB3mcsIvedqWvO0vUu1NMBlJ+UYyLwUzz1\nLEGX++lE1lWHoi6D9chaGXnNL0SVFcAu07Mmv1JZ8ReNH1vgbuuGpaoS5CzAyWsx\nI1bPC6yRD7jmKeUKkdGyFzyly/FhwajOMc7FnF6pw2g3Ce/NvzEDTfcrCZl+euge\ncPTeqk8DegUdHj9nlFcvHfrjesf6lUXYKLbZadDle4ratuWoXPs1jt/jcrQVaY5+\nYz4o7YQD6p6Utyb2Gp3qVImapGAF3PJrLGondjZAz/j7Y8Gvs1tWjwqhWuivSyk7\ngGskpTtvUypFpllxI44SDUdKmqonLbJExok/5sXyyQKBgQDc5NBov5hfpPvQA/kZ\nwT24Va1R+R6NdJn6NngXHOFD6xojbII0sZ//NwTu4RMB/agtsb3kMSYUW2ZmFGz0\njiYGgUVuGsOrDFWnKF5EbMu5u9JAOJ1RBAIJlCudF7oQSF4Du+WONHBPdrCcRtuT\nrVlCXrCBQMV4BHYzrNPp56u1TQKBgQC5lHvOVCsWlCDuhhS11BA/bpOJLK6lCRN7\nIsd1n0RpOSAJKPjmYfoPYtVHivhm1QiUjb0KuQNS3sfNqFlx2yKqAsY2MXS9V8OO\nq839++Ak/OV97EadZp24rI0zAwBs6ABt776YF4KhDaPYbeZlu4cCMkKIchkJj8bf\nxsOVqZvZ9wKBgQCIWQC/t4wRdaAtrVYkbKBxWQlL8Q7H1/J3fQmxkpUFvGf896yD\nZCTTfx2fafS2pOEbm3wQD7pmlGhnmDIM3nVgTIkTxpeCzHFOZd+SMumpsuK723ZX\nnLa5POmS5SNni5PkkCXJGls84ZFwVViSFk1jZ1lh3x5Ez9Q6X3LLDcJyfQKBgQCW\nr2gvyswJ01FCHADo+z4OI10Mfwl32/zDeSP379B+l/HZPjmL53ZB1ABVzRORe90x\nsj0TXdLDET2vUcj+1+43mXUUP+gIbiDN0da7Ki+AGRDGxHk6CT572y/zgbZwt5jR\nq19Y444f85FchTAU3sXrFKBNZkfKKcJTpXLeLQ/tVQKBgFnHr/JQRHd8DLx1dRZq\njyTylm10qMrjPSSEZqQ4We4AKdygn9FRyQsbbKUGdx78GYznKrQjdPEq6y76VdAN\n6+lmekNLBEoq11KK005s45j6mDXBWIfgxW6FyESPukZR/VtojQa7w70jpg8+s5GC\nAVVzTItnj8qwXACmxyx3bqJY\n-----END PRIVATE KEY-----\n",
+        "client_email": "207669608440-compute@developer.gserviceaccount.com",
+        "client_id": "106634043945080013561",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/207669608440-compute%40developer.gserviceaccount.com"
+        }
+        EOF
+
+        # GCloud Auth
+        gcloud auth activate-service-account --key-file service-account.json
+        gcloud config set project proven-mind-243406
+
+        # Build container
+        echo '>' gcloud builds submit --tag gcr.io/proven-mind-243406/dbs-techtrek-app
+        gcloud builds submit --tag gcr.io/proven-mind-243406/dbs-techtrek-app
+
+        # Push and deployment
+        echo '>' gcloud run deploy bzz-app --image gcr.io/proven-mind-243406/dbs-techtrek-app --region asia-southeast1 --platform managed
+        gcloud run deploy bzz-app --image gcr.io/proven-mind-243406/dbs-techtrek-app --region asia-southeast1 --platform managed
