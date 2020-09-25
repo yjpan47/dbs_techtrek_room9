@@ -1,10 +1,6 @@
-import re
 from sqlalchemy import Column, String, DateTime, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from api.main.models import Base
-
-
-EMAIL_REGEX = re.compile(r'\S+@\S+\.\S+')
 
 
 class Customer(Base):
@@ -15,7 +11,7 @@ class Customer(Base):
     dob = Column(DateTime, nullable=False)
     branch_code = Column(Integer, nullable=False)
     image_link = Column(String(1048), nullable=False)
-    officer = Column(Integer, ForeignKey('officer.username'), nullable=False)
+    officer_username = Column(Integer, ForeignKey('officer.username'), nullable=False)
 
     officer = relationship('Officer', back_populates='customers')
 
@@ -27,6 +23,6 @@ class Customer(Base):
             'dob': self.dob,
             'branch_code': self.branch_code,
             'image_link': self.image_link,
-            'officer': self.officer.to_dict()
+            'officer_username': self.officer_username
         }
         return result
