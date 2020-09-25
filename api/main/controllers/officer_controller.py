@@ -4,7 +4,7 @@ from api.main.services.officer_service import OfficerService
 
 API = Namespace(
     name='officer',
-    description='Operations related to adding, retrieving, deleting, and updating data for the officer entity.'
+    description='Operations related to adding, retrieving, deleting, and updating data for the officer entity.',
 )
 
 

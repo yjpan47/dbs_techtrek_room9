@@ -15,7 +15,6 @@ def create_blueprint():
     bp = Blueprint(
         'main',
         __name__,
-        url_prefix='/api/v1'
     )
     api = Api(
         app=bp, version="1.0",
