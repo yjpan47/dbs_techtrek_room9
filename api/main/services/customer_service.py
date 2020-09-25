@@ -1,3 +1,5 @@
+import datetime
+
 import jwt
 import json
 import requests
@@ -40,8 +42,9 @@ class CustomerService:
                 new_customer = Customer(
                     code=code,
                     name=name,
-                    age=age,
-                    dob=dob,
+                    age=int(age),
+                    dob=datetime.datetime.utcnow(),
+                    image_link="",
                     branch_code=branch_code,
                     officer_username=officer_username
                 )
