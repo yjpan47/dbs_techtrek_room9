@@ -1,9 +1,6 @@
-import os
-import datetime
 from flask import request
 from flask_restplus import Resource, Namespace
-from api.main.config import IMAGE_DIR
-
+from api.main.services.officer_service import OfficerService
 
 API = Namespace(
     name='officer',
@@ -13,8 +10,11 @@ API = Namespace(
 
 @API.route('/login', strict_slashes=False)
 class OfficerLoginController(Resource):
-    def get(self):
-        return "HGellofwef", 200
+    def post(self):
+        username = request.json.get('username')
+        password = request.json.get('password')
+        return OfficerService.login_officer(username, password)
+
 
 
 # @API.route('/auth/refresh', strict_slashes=False)
