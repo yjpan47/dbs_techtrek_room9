@@ -6,6 +6,8 @@ All commits to this repository is down by the owner of this repository [yjpan47]
 
 > There are two git usernames (**johnp** and **yjpan47**) that contributed to this repository - both belonging to the owner of this repository.
 
+> Update I have added a secondary email to my **johnp** git account. So all my commits should reflect my github account **yjpan47**.
+
 This project is part of DBS TechTrek 2020.
 
 
